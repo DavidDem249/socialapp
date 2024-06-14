@@ -21,14 +21,16 @@ class TextFieldCustum extends StatelessWidget {
         validator: onTapValidate,
         decoration: InputDecoration(
           hintText: hintText,
-          enabledBorder: const OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
             //borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(color: Theme.of(context).colorScheme.secondary)
+          ),
+          focusedBorder: const OutlineInputBorder(
+            // borderSide: BorderSide(color: Colors.grey.shade400)
             borderSide: BorderSide(color: Colors.white)
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey.shade400)
-          ),
-          fillColor: Colors.grey.shade200,
+          // fillColor: Colors.grey.shade200,
+          fillColor: Theme.of(context).colorScheme.primary,
           filled: true,
           hintStyle: TextStyle(color: Colors.grey.shade500),
         ),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -40,10 +41,20 @@ class _RegisterPageState extends State<RegisterPage> {
 
         // check if password is confirmed
         if(passwordController.text == confirmPassworController.text){
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+
+          // create the user
+          UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailController.text, 
             password: passwordController.text
           );
+
+          // After creating the user, create a new document in cloud firestore called Users
+          FirebaseFirestore.instance.collection("Users").doc(userCredential.user!.email).set({
+            "username": emailController.text.split('@')[0], // initial username
+            "bio": "Empty bie...",
+            // add any additionam fields as needed
+          });
+
         }else{
           // Show error message, passwords don't match
           wrongMessage("Passwords don't match !");
